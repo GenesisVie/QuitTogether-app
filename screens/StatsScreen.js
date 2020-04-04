@@ -4,16 +4,16 @@ import {ListItem} from 'react-native-elements'
 import {ErrorBoundary} from '../components/ErrorBoundary'
 
 
-export default class HomeScreen extends React.Component {
+export default class StatsScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {blogs: []}
-        this._loadBlogs();
+        this.state = {stats: []}
+        this._loadStats();
     }
 
-    _loadBlogs = async () => {
-        const result = await fetch('https://quittogether.influcom-preprod.fr/api/blog/all', {
+    _loadStats = async () => {
+        const result = await fetch('https://quittogether.influcom-preprod.fr/api/user-stat/me', {
             headers: {
                 'Authorization': 'Bearer ' + await AsyncStorage.getItem('token'),
                 'Accept': 'application/json',
@@ -21,7 +21,8 @@ export default class HomeScreen extends React.Component {
             },
             method: 'GET',
         });
-        this.state.blogs = await result.json();
+        const data = await result.json();
+        this.state.stats = data;
         this.forceUpdate()
     };
 
@@ -34,34 +35,24 @@ export default class HomeScreen extends React.Component {
             titleStyle={styles.titlecontent}
             subtitleStyle={styles.text}
             title={item.title}
-            subtitle={item.description}
+            subtitle={ item.cigarettes}
             // leftAvatar={{ source: { uri: item.image} }}
             chevron
         />
     )
 
     render() {
-        if (this.state.blogs.length === 0) {
-            return (
-                <View style={styles.container}>
-                    <Text style={styles.title}>Accueil</Text>
-                </View>
-            )
-        } else {
-            return (
-                <ErrorBoundary>
-                    <View style={styles.container}>
-                        <Text style={styles.title}>Nos Article Stop Tabac</Text>
-                        <FlatList
-                            style={styles.content}
-                            keyExtractor={this.keyExtractor}
-                            data={this.state.blogs}
-                            renderItem={this.renderItem}
-                        />
-                    </View>
-                </ErrorBoundary>
-            )
-        }
+        return (
+            <View style={styles.container}>
+                <Text style={styles.title}>Vos accomplissements</Text>
+                <FlatList
+                    style={styles.content}
+                    keyExtractor={this.keyExtractor}
+                    data={this.state.stats}
+                    renderItem={this.renderItem}
+                />
+            </View>
+        )
     }
 }
 
@@ -86,7 +77,8 @@ const styles = StyleSheet.create({
     },
     containerList: {
         backgroundColor: "#465881",
-        marginBottom: 30,
+        height: 50,
+        marginBottom: 20,
         borderRadius: 10,
         padding: 20
     },
@@ -96,7 +88,10 @@ const styles = StyleSheet.create({
         margin: 5
     },
     titlecontent: {
-        color: "#fb5b5a",
+        color: "#003f5c",
+        fontSize: 20,
+        fontWeight: "bold",
+
     },
     text: {
         color: "#ffffff",

@@ -2,7 +2,9 @@ import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import Login from '../components/Login';
+import Login from '../screens/AccountScreen'
+import Register from '../screens/RegisterScreen'
+import Stats from '../screens/StatsScreen'
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -24,7 +26,7 @@ export default function BottomTabNavigator({navigation, route}) {
             />
             <BottomTab.Screen
                 name="Stats"
-                component={Login}
+                component={Stats}
                 options={{
                     tabBarLabel: () =>false,
                     tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="md-stats"/>,
@@ -32,7 +34,7 @@ export default function BottomTabNavigator({navigation, route}) {
             />
             <BottomTab.Screen
                 name="Friends"
-                component={Login}
+                component={Register}
                 options={{
                     tabBarLabel: () =>false,
                     tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="md-people"/>,
