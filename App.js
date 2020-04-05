@@ -8,6 +8,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
+import RegisterScreen from "./screens/RegisterScreen";
+import DetailBlog from "./components/DetailBlog";
+import DetailStats from "./components/DetailStats";
 
 const Stack = createStackNavigator();
 
@@ -54,6 +57,9 @@ export default function App(props) {
             headerShown: false
           }}>
             <Stack.Screen  name=" " component={BottomTabNavigator} />
+            <Stack.Screen name="Register" component={RegisterScreen}/>
+            <Stack.Screen name="DetailBlog" component={DetailBlog}/>
+            <Stack.Screen name="DetailStats" component={DetailStats}/>
           </Stack.Navigator>
         </NavigationContainer>
       </View>
