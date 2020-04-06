@@ -1,10 +1,8 @@
 import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
-import BlogScreen from '../screens/BlogScreen';
-import AccountScreen from '../screens/AccountScreen'
-import Register from '../screens/RegisterScreen'
-import Stats from '../screens/StatsScreen'
+import Login from '../components/Login'
+import Home from "../components/Home";
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Login';
@@ -18,34 +16,18 @@ export default function BottomTabNavigator({navigation, route}) {
         <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
             <BottomTab.Screen
                 name="Home"
-                component={BlogScreen}
+                component={Home}
                 options={{
                     tabBarLabel: () =>false,
                     tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="md-home"/>,
                 }}
             />
             <BottomTab.Screen
-                name="Stats"
-                component={Stats}
+                name="Login"
+                component={Login}
                 options={{
                     tabBarLabel: () =>false,
-                    tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="md-stats"/>,
-                }}
-            />
-            <BottomTab.Screen
-                name="Friends"
-                component={Register}
-                options={{
-                    tabBarLabel: () =>false,
-                    tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="md-people"/>,
-                }}
-            />
-            <BottomTab.Screen
-                name="Account"
-                component={AccountScreen}
-                options={{
-                    tabBarLabel: () =>false,
-                    tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="md-people"/>,
+                    tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="md-key"/>,
                 }}
             />
         </BottomTab.Navigator>

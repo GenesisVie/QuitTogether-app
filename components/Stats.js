@@ -41,13 +41,14 @@ export default class Stats extends React.Component {
                 subtitleStyle={styles.text}
                 title={item.title}
                 subtitle={item.cigarettes}
-                // leftAvatar={{ source: { uri: item.image} }}
+                leftAvatar={{ source: { uri: 'https://quittogether.influcom-preprod.fr/uploads/images/stats/'+item.image} }}
                 chevron
             />
         </TouchableOpacity>
     )
 
     render() {
+        console.log(this.state.stats)
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>Vos accomplissements</Text>

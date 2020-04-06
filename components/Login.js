@@ -14,7 +14,7 @@ export default class Login extends React.Component {
     }
 
     _login = async () => {
-        if (this.state.email !== '' && this.state.password !== "") {
+        if (this.state.email !== '' && this.state.password !== '') {
             const result = await fetch('https://quittogether.influcom-preprod.fr/api/login_check', {
                 headers: {
                     'Accept': 'application/json',
@@ -29,8 +29,9 @@ export default class Login extends React.Component {
 
             const data = await result.json();
             AsyncStorage.setItem('token', data.token)
+            this.props.navigation.navigate('App')
         } else {
-            alert('error loggin')
+            alert('Identifiants incorrects')
         }
     };
 

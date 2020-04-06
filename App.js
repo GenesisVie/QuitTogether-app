@@ -5,12 +5,14 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { AsyncStorage } from 'react-native';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
 import RegisterScreen from "./screens/RegisterScreen";
 import DetailBlog from "./components/DetailBlog";
 import DetailStats from "./components/DetailStats";
+import BottomTabNoAuthNavigator from "./navigation/BottomTabNoAuthNavigator";
 
 const Stack = createStackNavigator();
 
@@ -19,6 +21,7 @@ export default function App(props) {
   const [initialNavigationState, setInitialNavigationState] = React.useState();
   const containerRef = React.useRef();
   const { getInitialState } = useLinking(containerRef);
+  let token = AsyncStorage.getItem('token');
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
@@ -49,21 +52,39 @@ export default function App(props) {
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return null;
   } else {
-    return (
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <Stack.Navigator screenOptions={{
-            headerShown: false
-          }}>
-            <Stack.Screen  name=" " component={BottomTabNavigator} />
-            <Stack.Screen name="Register" component={RegisterScreen}/>
-            <Stack.Screen name="DetailBlog" component={DetailBlog}/>
-            <Stack.Screen name="DetailStats" component={DetailStats}/>
-          </Stack.Navigator>
-        </NavigationContainer>
-      </View>
-    );
+    console.log(token)
+    if (AsyncStorage.getItem('token') !== ''  || AsyncStorage.getItem('token') !== undefined) {
+      return (
+          <View style={styles.container}>
+            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+            <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
+              <Stack.Navigator screenOptions={{
+                headerShown: false
+              }}>
+                <Stack.Screen  name=" " component={BottomTabNoAuthNavigator} />
+                <Stack.Screen  name="App" component={BottomTabNavigator} />
+                <Stack.Screen name="Register" component={RegisterScreen}/>
+                <Stack.Screen name="DetailBlog" component={DetailBlog}/>
+                <Stack.Screen name="DetailStats" component={DetailStats}/>
+              </Stack.Navigator>
+            </NavigationContainer>
+          </View>
+      );
+    }else{
+      return (
+          <View style={styles.container}>
+            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+            <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
+              <Stack.Navigator screenOptions={{
+                headerShown: false
+              }}>
+                <Stack.Screen  name=" " component={BottomTabNoAuthNavigator} />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </View>
+      );
+    }
+
   }
 }
 

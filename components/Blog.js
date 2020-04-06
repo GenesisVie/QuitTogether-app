@@ -38,7 +38,7 @@ export default class Blog extends React.Component {
                 subtitleStyle={styles.text}
                 title={item.title}
                 subtitle={item.description}
-                // leftAvatar={{ source: { uri: item.image} }}
+                leftAvatar={{ source: { uri: 'https://quittogether.influcom-preprod.fr/uploads/images/blog/' + item.image} }}
                 chevron
             />
         </TouchableOpacity>
