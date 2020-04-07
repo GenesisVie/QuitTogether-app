@@ -28,7 +28,9 @@ export default class Login extends React.Component {
             });
 
             const data = await result.json();
-            AsyncStorage.setItem('token', data.token)
+            await AsyncStorage.setItem('token', data.token)
+            await AsyncStorage.setItem("email", this.state.email)
+            await AsyncStorage.setItem("password", this.state.password)
             this.props.navigation.navigate('App')
         } else {
             alert('Identifiants incorrects')

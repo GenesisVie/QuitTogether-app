@@ -48,7 +48,6 @@ export default class Stats extends React.Component {
     )
 
     render() {
-        console.log(this.state.stats)
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>Vos accomplissements</Text>

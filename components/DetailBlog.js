@@ -1,6 +1,5 @@
 import * as React from 'react';
-import {AsyncStorage, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import NativeTimePickerAndroid from "react-native/Libraries/Components/TimePickerAndroid/NativeTimePickerAndroid";
+import {AsyncStorage, StyleSheet, View, Text} from 'react-native';
 
 
 export default class DetailBlog extends React.Component {
