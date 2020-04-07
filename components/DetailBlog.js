@@ -26,7 +26,6 @@ export default class DetailBlog extends React.Component {
             },
             method: 'GET',
         });
-
         const blog = await result.json();
         this.state.blog.title = blog.title;
         this.state.blog.description = blog.description;

@@ -68,18 +68,6 @@ export default function App(props) {
                 </NavigationContainer>
             </View>
         );
-        return (
-            <View style={styles.container}>
-                {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
-                <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-                    <Stack.Navigator screenOptions={{
-                        headerShown: false
-                    }}>
-                        <Stack.Screen name=" " component={BottomTabNoAuthNavigator}/>
-                    </Stack.Navigator>
-                </NavigationContainer>
-            </View>
-        );
     }
 }
 
