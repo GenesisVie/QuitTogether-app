@@ -1,19 +1,19 @@
 import * as React from 'react';
 import {AsyncStorage, FlatList, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {ListItem} from 'react-native-elements'
+import {ErrorBoundary} from "./ErrorBoundary";
 import { API_URL } from 'react-native-dotenv'
 
-
-export default class Stats extends React.Component {
+export default class FriendStat extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {stats: []}
-        this._loadStats();
+        this.state = {friendsStats: []}
+        this._loadFriendStats();
     }
 
-    _loadStats = async () => {
-        const result = await fetch(API_URL+'api/user-stat/me', {
+    _loadFriendStats = async () => {
+        const result = await fetch(API_URL+'api/friend/all/user-stat', {
             headers: {
                 'Authorization': 'Bearer ' + await AsyncStorage.getItem('token'),
                 'Accept': 'application/json',
@@ -21,16 +21,16 @@ export default class Stats extends React.Component {
             },
             method: 'GET',
         });
-        const data = await result.json();
-        this.state.stats = data;
+        const data =  await result.json();
+        this.state.friendsStats = data;
         this.forceUpdate()
     };
 
     keyExtractor = (item, index) => index.toString()
-
-    _displayDetailStats = (stat) => {
-        this.props.navigation.navigate("DetailStats", {'stat': stat})
-    };
+    _displayDetailStats = (item) => {
+        //TODO: Detail stats friend
+        console.log(item)
+    }
     renderItem = ({item}) => (
         <TouchableOpacity onPress={() => {
             this._displayDetailStats(item)
@@ -38,11 +38,11 @@ export default class Stats extends React.Component {
             <ListItem
                 containerStyle={styles.containerList}
                 contentContainerStyle={styles.item}
-                titleStyle={styles.titlecontent}
                 subtitleStyle={styles.text}
-                title={item.title}
                 subtitle={item.cigarettes}
-                leftAvatar={{ source: { uri: API_URL+'uploads/images/stats/'+item.image} }}
+                titleStyle={styles.titlecontent}
+                title={item.firstname + ' ' + item.lastname + ' a débloqué un accomplissement'}
+                // leftAvatar={{ source: { uri: API_URL+'uploads/images/stats/'+item.image} }}
                 chevron
             />
         </TouchableOpacity>
@@ -51,11 +51,11 @@ export default class Stats extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>Vos accomplissements</Text>
+                <Text style={styles.title}>Les accomplissements de vos amis</Text>
                 <FlatList
                     style={styles.content}
                     keyExtractor={this.keyExtractor}
-                    data={this.state.stats}
+                    data={this.state.friendsStats}
                     renderItem={this.renderItem}
                 />
             </View>
@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 25,
         color: "#fb5b5a",
-        marginTop: 40,
         padding: 20
     },
     content: {
@@ -84,8 +83,7 @@ const styles = StyleSheet.create({
     },
     containerList: {
         backgroundColor: "#465881",
-        height: 50,
-        marginBottom: 20,
+        marginBottom: 30,
         borderRadius: 10,
         padding: 20
     },
@@ -95,10 +93,7 @@ const styles = StyleSheet.create({
         margin: 5
     },
     titlecontent: {
-        color: "#003f5c",
-        fontSize: 20,
-        fontWeight: "bold",
-
+        color: "#ffffff",
     },
     text: {
         color: "#ffffff",

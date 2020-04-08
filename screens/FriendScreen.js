@@ -1,7 +1,8 @@
 import * as React from 'react';
 import FriendList from '../components/FriendList'
-// import FriendAdd from '../components/FriendAdd'
-// import FriendStat from '../components/FriendStat'
+import FriendAdd from '../components/FriendAdd'
+import FriendStats from '../components/FriendStats'
+import {SafeAreaView, ScrollView, StyleSheet} from 'react-native'
 
 export default class FriendScreen extends React.Component {
 
@@ -11,8 +12,20 @@ export default class FriendScreen extends React.Component {
 
     render() {
         return (
-            <FriendList></FriendList>
+            <SafeAreaView style={styles.container}>
+                <FriendAdd/>
+                <FriendStats/>
+                <FriendList/>
+            </SafeAreaView>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#ffffff',
+    },
+
+})
 

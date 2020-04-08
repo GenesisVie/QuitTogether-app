@@ -4,7 +4,7 @@ import {ListItem} from 'react-native-elements'
 import {ErrorBoundary} from "./ErrorBoundary";
 import { API_URL } from 'react-native-dotenv'
 
-export default class Blog extends React.Component {
+export default class FriendList extends React.Component {
 
     constructor(props) {
         super(props);
@@ -34,7 +34,6 @@ export default class Blog extends React.Component {
                 contentContainerStyle={styles.item}
                 titleStyle={styles.titlecontent}
                 title={item.firstname + ' ' + item.lastname}
-                chevron
             />
     );
 
@@ -64,21 +63,20 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 25,
         color: "#fb5b5a",
-        marginTop: 40,
         padding: 20
     },
     content: {
         backgroundColor: "#003f5c",
-        height: 50,
-        marginBottom: 20,
+        height: 30,
+        marginBottom: 10,
         color: "#ffffff",
         padding: 20
     },
     containerList: {
         backgroundColor: "#465881",
-        marginBottom: 30,
+        marginBottom: 20,
         borderRadius: 10,
-        padding: 20
+        padding: 10
     },
     item: {
         height: 20,
@@ -86,7 +84,9 @@ const styles = StyleSheet.create({
         margin: 5
     },
     titlecontent: {
-        color: "#fb5b5a",
+        textAlign: 'center',
+        color: "#ffffff",
+        padding: 10
     },
     text: {
         color: "#ffffff",
