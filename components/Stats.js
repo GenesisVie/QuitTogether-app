@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {AsyncStorage, FlatList, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {ListItem} from 'react-native-elements'
+import { API_URL } from 'react-native-dotenv'
 
 
 export default class Stats extends React.Component {
@@ -12,7 +13,7 @@ export default class Stats extends React.Component {
     }
 
     _loadStats = async () => {
-        const result = await fetch('https://quittogether.influcom-preprod.fr/api/user-stat/me', {
+        const result = await fetch(API_URL+'api/user-stat/me', {
             headers: {
                 'Authorization': 'Bearer ' + await AsyncStorage.getItem('token'),
                 'Accept': 'application/json',
@@ -21,6 +22,7 @@ export default class Stats extends React.Component {
             method: 'GET',
         });
         const data = await result.json();
+        console.log(data)
         this.state.stats = data;
         this.forceUpdate()
     };
@@ -41,7 +43,7 @@ export default class Stats extends React.Component {
                 subtitleStyle={styles.text}
                 title={item.title}
                 subtitle={item.cigarettes}
-                leftAvatar={{ source: { uri: 'https://quittogether.influcom-preprod.fr/uploads/images/stats/'+item.image} }}
+                leftAvatar={{ source: { uri: API_URL+'uploads/images/stats/'+item.image} }}
                 chevron
             />
         </TouchableOpacity>

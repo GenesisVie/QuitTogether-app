@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {AsyncStorage, StyleSheet, View, Text} from 'react-native';
-
+import { API_URL } from 'react-native-dotenv'
 
 export default class DetailBlog extends React.Component {
 
@@ -19,7 +19,7 @@ export default class DetailBlog extends React.Component {
 
     _loadDetail = async () => {
         const idBlog = this.props.route.params.id;
-        const result = await fetch('https://quittogether.influcom-preprod.fr/api/blog/id/' + idBlog, {
+        const result = await fetch(API_URL+'api/blog/id/' + idBlog, {
             headers: {
                 'Authorization': 'Bearer ' + await AsyncStorage.getItem('token'),
                 'Content-Type': 'application/json'

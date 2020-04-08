@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {StyleSheet, Text, View, TextInput, TouchableOpacity, Image, AsyncStorage} from 'react-native';
+import { API_URL } from 'react-native-dotenv'
 // import DateTime from '../components/DateTime'
 
 export default class Account extends React.Component {
@@ -18,7 +19,7 @@ export default class Account extends React.Component {
     }
 
     _fetchingMyDetails = async () => {
-        const result = await fetch('https://quittogether.influcom-preprod.fr/api/user/me', {
+        const result = await fetch(API_URL+'/api/user/me', {
             headers: {
                 'Authorization': 'Bearer ' + await AsyncStorage.getItem('token'),
                 'Content-Type': 'application/json'
@@ -38,7 +39,7 @@ export default class Account extends React.Component {
     };
 
     _updatingMyDetails = async () => {
-        const result = await fetch('https://quittogether.influcom-preprod.fr/api/user/update', {
+        const result = await fetch(API_URL+'api/user/update', {
             headers: {
                 'Authorization': 'Bearer ' + await AsyncStorage.getItem('token'),
                 'Content-Type': 'application/json'
@@ -59,7 +60,7 @@ export default class Account extends React.Component {
                 <Text style={styles.logo}>Mes Informations</Text>
                 <Image
                     style={styles.image}
-                    source={{source: {uri: 'https://quittogether.influcom-preprod.fr/uploads/images/user/' + this.state.image}}}
+                    source={{source: {uri: API_URL+'uploads/images/user/' + this.state.image}}}
                 />
                 <Text style={styles.text}>
                     {this.state.firstname}</Text>

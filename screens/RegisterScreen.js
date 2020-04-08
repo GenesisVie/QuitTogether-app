@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import {AsyncStorage} from 'react-native';
+import { API_URL } from 'react-native-dotenv'
 
 export default class App extends React.Component {
     constructor(props) {
@@ -17,7 +18,7 @@ export default class App extends React.Component {
 
     _register= async () => {
         if (this.state.email !== '' && this.state.password !== "") {
-            const result = await fetch('https://quittogether.influcom-preprod.fr/user/register', {
+            const result = await fetch(API_URL+'user/register', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -43,7 +44,7 @@ export default class App extends React.Component {
 
     _login = async () => {
         if (this.state.email !== '' && this.state.password !== "") {
-            const result = await fetch('https://quittogether.influcom-preprod.fr/api/login_check', {
+            const result = await fetch(API_URL+'api/login_check', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'

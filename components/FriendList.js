@@ -8,12 +8,12 @@ export default class Blog extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {blogs: []}
-        this._loadBlogs();
+        this.state = {friends: []}
+        this._loadFriend();
     }
 
-    _loadBlogs = async () => {
-        const result = await fetch(API_URL+'api/blog/all', {
+    _loadFriend = async () => {
+        const result = await fetch(API_URL+'api/friend/all', {
             headers: {
                 'Authorization': 'Bearer ' + await AsyncStorage.getItem('token'),
                 'Accept': 'application/json',
@@ -21,41 +21,32 @@ export default class Blog extends React.Component {
             },
             method: 'GET',
         });
-        this.state.blogs = await result.json();
+        const data =  await result.json();
+        this.state.friends = data;
         this.forceUpdate()
     };
 
     keyExtractor = (item, index) => index.toString()
 
     renderItem = ({item}) => (
-        <TouchableOpacity onPress={() => {
-            this._displayDetailBlog(item.id)
-        }}>
             <ListItem
                 containerStyle={styles.containerList}
                 contentContainerStyle={styles.item}
                 titleStyle={styles.titlecontent}
-                subtitleStyle={styles.text}
-                title={item.title}
-                subtitle={item.description}
-                leftAvatar={{ source: { uri: API_URL+'uploads/images/blog/' + item.image} }}
+                title={item.firstname + ' ' + item.lastname}
                 chevron
             />
-        </TouchableOpacity>
     );
-    _displayDetailBlog = (idBlog) => {
-        this.props.navigation.navigate("DetailBlog", {id: idBlog})
-    };
 
     render() {
         return (
             <ErrorBoundary>
                 <View style={styles.container}>
-                    <Text style={styles.title}>Nos Article Stop Tabac</Text>
+                    <Text style={styles.title}>Mes Amis</Text>
                     <FlatList
                         style={styles.content}
                         keyExtractor={this.keyExtractor}
-                        data={this.state.blogs}
+                        data={this.state.friends}
                         renderItem={this.renderItem}
                     />
                 </View>
