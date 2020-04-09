@@ -41,7 +41,7 @@ export default class Stats extends React.Component {
                 titleStyle={styles.titlecontent}
                 subtitleStyle={styles.text}
                 title={item.title}
-                subtitle={item.cigarettes}
+                subtitle={'Cigarettes non fumés :'+item.cigarettes}
                 leftAvatar={{ source: { uri: API_URL+'uploads/images/stats/'+item.image} }}
                 chevron
             />

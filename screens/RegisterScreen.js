@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import {AsyncStorage} from 'react-native';
 import { API_URL } from 'react-native-dotenv'
+import {_authenticate} from '../services/Auth'
 
 export default class App extends React.Component {
     constructor(props) {
@@ -39,27 +40,6 @@ export default class App extends React.Component {
 
         } else {
             alert('error register')
-        }
-    };
-
-    _login = async () => {
-        if (this.state.email !== '' && this.state.password !== "") {
-            const result = await fetch(API_URL+'api/login_check', {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: 'POST',
-                body: JSON.stringify({
-                    username: this.state.email,
-                    password: this.state.password
-                })
-            });
-
-            const data = await result.json();
-            AsyncStorage.setItem('token', data.token)
-        } else {
-            alert('error loggin')
         }
     };
 

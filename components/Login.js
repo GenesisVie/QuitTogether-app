@@ -1,7 +1,8 @@
 import * as React from 'react';
-import {StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import {StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native';
 import {AsyncStorage} from 'react-native';
-import { API_URL } from 'react-native-dotenv'
+import {_authenticate} from '../services/Auth'
+import {API_URL} from 'react-native-dotenv'
 
 export default class Login extends React.Component {
 
@@ -15,28 +16,13 @@ export default class Login extends React.Component {
     }
 
     _login = async () => {
-        if (this.state.email !== '' && this.state.password !== '') {
-            const result = await fetch(API_URL+'api/login_check', {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: 'POST',
-                body: JSON.stringify({
-                    username: this.state.email,
-                    password: this.state.password
-                })
-            });
-
-            const data = await result.json();
-            await AsyncStorage.setItem('token', data.token)
-            await AsyncStorage.setItem("email", this.state.email)
-            await AsyncStorage.setItem("password", this.state.password)
+        await _authenticate(this.state.email, this.state.password)
+        const token = await AsyncStorage.getItem('token');
+        if (token) {
             this.props.navigation.navigate('App')
-        } else {
-            alert('Identifiants incorrects')
         }
-    };
+    }
+
 
     _fetchingAsync = async () => {
         const fetchedAsync = await AsyncStorage.getItem('token');
@@ -66,10 +52,6 @@ export default class Login extends React.Component {
                         value={this.state.password}
                     />
                 </View>
-                <TouchableOpacity>
-                    <Text style={styles.forgot}
-                          onPress={this._fetchingAsync}>Mot de passe oublié ?</Text>
-                </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.loginBtn}
                     onPress={this._login}
@@ -78,7 +60,7 @@ export default class Login extends React.Component {
                 </TouchableOpacity>
                 <TouchableOpacity>
                     <Text style={styles.loginText}
-                        onPress={()=>this.props.navigation.navigate("Register")}
+                          onPress={() => this.props.navigation.navigate("Register")}
                     >
                         Inscription
                     </Text>
@@ -114,10 +96,6 @@ const styles = StyleSheet.create({
     inputText: {
         height: 50,
         color: "white"
-    },
-    forgot: {
-        color: "white",
-        fontSize: 11
     },
     loginBtn: {
         width: "80%",
