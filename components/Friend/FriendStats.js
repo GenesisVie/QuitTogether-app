@@ -1,19 +1,22 @@
 import * as React from 'react';
 import {AsyncStorage, FlatList, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {ListItem} from 'react-native-elements'
-import {ErrorBoundary} from "./ErrorBoundary";
+import {ErrorBoundary} from "../ErrorBoundary";
 import { API_URL } from 'react-native-dotenv'
 
-export default class Blog extends React.Component {
+export default class FriendStat extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {blogs: []}
-        this._loadBlogs();
+        this.state = {friendsStats: []}
+        this._loadFriendStats();
     }
 
-    _loadBlogs = async () => {
-        const result = await fetch(API_URL+'api/blog/all', {
+    //TODO: Système de likes ou réaction
+
+
+    _loadFriendStats = async () => {
+        const result = await fetch(API_URL+'api/friend/all/user-stat', {
             headers: {
                 'Authorization': 'Bearer ' + await AsyncStorage.getItem('token'),
                 'Accept': 'application/json',
@@ -21,45 +24,45 @@ export default class Blog extends React.Component {
             },
             method: 'GET',
         });
-        this.state.blogs = await result.json();
+        const data =  await result.json();
+        this.state.friendsStats = data;
         this.forceUpdate()
     };
 
     keyExtractor = (item, index) => index.toString()
-
+    _displayDetailStats = (item) => {
+        //TODO: Detail stats friend
+        //Detail de la stat, avec un check si on l'a debloqué aussi
+        console.log(item)
+    }
     renderItem = ({item}) => (
         <TouchableOpacity onPress={() => {
-            this._displayDetailBlog(item.id)
+            this._displayDetailStats(item)
         }}>
             <ListItem
                 containerStyle={styles.containerList}
                 contentContainerStyle={styles.item}
-                titleStyle={styles.titlecontent}
                 subtitleStyle={styles.text}
-                title={item.title}
-                subtitle={item.description}
-                leftAvatar={{ source: { uri: API_URL+'uploads/images/blog/' + item.image} }}
+                subtitle={item.cigarettes}
+                titleStyle={styles.titlecontent}
+                title={item.firstname + ' ' + item.lastname + ' a débloqué un accomplissement'}
+                // leftAvatar={{ source: { uri: API_URL+'uploads/images/stats/'+item.image} }}
                 chevron
             />
         </TouchableOpacity>
-    );
-    _displayDetailBlog = (idBlog) => {
-        this.props.navigation.navigate("DetailBlog", {id: idBlog})
-    };
+    )
 
     render() {
         return (
-            <ErrorBoundary>
-                <View style={styles.container}>
-                    <Text style={styles.title}>Nos Article Stop Tabac</Text>
-                    <FlatList
-                        style={styles.content}
-                        keyExtractor={this.keyExtractor}
-                        data={this.state.blogs}
-                        renderItem={this.renderItem}
-                    />
-                </View>
-            </ErrorBoundary>
+            <View style={styles.container}>
+                <Text style={styles.title}>Les accomplissements de vos amis</Text>
+                <FlatList
+                    style={styles.content}
+                    keyExtractor={this.keyExtractor}
+                    data={this.state.friendsStats}
+                    renderItem={this.renderItem}
+                />
+            </View>
         )
     }
 }
@@ -73,7 +76,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 25,
         color: "#fb5b5a",
-        marginTop: 40,
         padding: 20
     },
     content: {
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
         margin: 5
     },
     titlecontent: {
-        color: "#fb5b5a",
+        color: "#ffffff",
     },
     text: {
         color: "#ffffff",

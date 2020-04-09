@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import {StyleSheet, View, Text, Image} from 'react-native';
+import {API_URL} from "react-native-dotenv";
 
 
 export default class DetailStats extends React.Component {
@@ -12,6 +13,7 @@ export default class DetailStats extends React.Component {
                 'title': stat.title,
                 'lifetime': stat.lifetime,
                 'moneyEco': stat.moneyEco,
+                'image': stat.image,
                 'cigarettes': stat.cigarettes
             }
         }
@@ -22,7 +24,11 @@ export default class DetailStats extends React.Component {
             <View style={styles.container}>
                 <Text style={styles.title}>{this.state.stat.title}</Text>
                 <Text style={styles.description}>{this.state.stat.cigarettes}</Text>
-                <Text style={styles.image}>{this.state.stat.lifetime}</Text>
+                <Image
+                    style={styles.image}
+                    source={{
+                        uri: API_URL + 'uploads/images/stat/' + this.state.image
+                    }}/>
                 <Text style={styles.image}>{this.state.stat.moneyEco}</Text>
             </View>
         )
@@ -33,13 +39,16 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#003f5c',
+        justifyContent: "center",
+        alignItems: "center",
+
     },
     title: {
         fontWeight: "bold",
         fontSize: 25,
         color: "#fb5b5a",
         marginTop: 40,
-        padding: 20
+        padding: 20,
     },
     description: {
         backgroundColor: "#003f5c",
@@ -47,9 +56,9 @@ const styles = StyleSheet.create({
         padding: 20
     },
     image: {
-        backgroundColor: "#003f5c",
-        color: "#ffffff",
-        padding: 20
+        padding: 20,
+        width: 80,
+        height: 80,
     },
     containerList: {
         backgroundColor: "#465881",

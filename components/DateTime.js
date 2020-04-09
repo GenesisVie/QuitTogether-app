@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, Button, Platform} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
+//TODO: Datepicker pour les dates mais non utilisé a cause du format de la date côté back
 class DateTime extends React.Component {
     render() {
 

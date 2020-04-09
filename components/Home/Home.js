@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {StyleSheet, View, Text, Image} from 'react-native';
-import {ErrorBoundary} from "./ErrorBoundary";
+import {ErrorBoundary} from "../ErrorBoundary";
 
 
 export default class Home extends React.Component {
@@ -13,7 +13,7 @@ export default class Home extends React.Component {
                     <Text style={styles.description}>Venez arreter de fumer avec vos amis pour avoir la meilleure des
                         motivations
                     </Text>
-                    <Image style={styles.image} source={require('../assets/images/friend.png')}/>
+                    <Image style={styles.image} source={require('../../assets/images/friend.png')}/>
                 </View>
             </ErrorBoundary>
         )

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {AsyncStorage, FlatList, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {AsyncStorage, FlatList, StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {ListItem} from 'react-native-elements'
-import {ErrorBoundary} from "./ErrorBoundary";
-import { API_URL } from 'react-native-dotenv'
+import {ErrorBoundary} from "../ErrorBoundary";
+import {API_URL} from 'react-native-dotenv'
 
 export default class FriendList extends React.Component {
 
@@ -13,7 +13,7 @@ export default class FriendList extends React.Component {
     }
 
     _loadFriend = async () => {
-        const result = await fetch(API_URL+'api/friend/all', {
+        const result = await fetch(API_URL + 'api/friend/all', {
             headers: {
                 'Authorization': 'Bearer ' + await AsyncStorage.getItem('token'),
                 'Accept': 'application/json',
@@ -21,7 +21,7 @@ export default class FriendList extends React.Component {
             },
             method: 'GET',
         });
-        const data =  await result.json();
+        const data = await result.json();
         this.state.friends = data;
         this.forceUpdate()
     };
@@ -29,12 +29,13 @@ export default class FriendList extends React.Component {
     keyExtractor = (item, index) => index.toString()
 
     renderItem = ({item}) => (
-            <ListItem
-                containerStyle={styles.containerList}
-                contentContainerStyle={styles.item}
-                titleStyle={styles.titlecontent}
-                title={item.firstname + ' ' + item.lastname}
-            />
+        <ListItem
+            containerStyle={styles.containerList}
+            contentContainerStyle={styles.item}
+            titleStyle={styles.titlecontent}
+            title={item.firstname + ' ' + item.lastname}
+            leftAvatar={{source: {uri: API_URL + 'uploads/images/user/' + item.image}}}
+        />
     );
 
     render() {

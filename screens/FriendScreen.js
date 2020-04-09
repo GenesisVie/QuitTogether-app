@@ -1,7 +1,7 @@
 import * as React from 'react';
-import FriendList from '../components/FriendList'
-import FriendAdd from '../components/FriendAdd'
-import FriendStats from '../components/FriendStats'
+import FriendList from '../components/Friend/FriendList'
+import FriendAdd from '../components/Friend/FriendAdd'
+import FriendStats from '../components/Friend/FriendStats'
 import {SafeAreaView, ScrollView, StyleSheet} from 'react-native'
 
 export default class FriendScreen extends React.Component {

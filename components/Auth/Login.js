@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native';
 import {AsyncStorage} from 'react-native';
-import {_authenticate} from '../services/Auth'
+import {_authenticate} from '../../services/Auth'
 import {API_URL} from 'react-native-dotenv'
 
 export default class Login extends React.Component {

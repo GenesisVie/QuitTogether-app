@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {AsyncStorage, StyleSheet, View, Text} from 'react-native';
+import {AsyncStorage, StyleSheet, View, Text, Image} from 'react-native';
 import { API_URL } from 'react-native-dotenv'
 
 export default class DetailBlog extends React.Component {
@@ -39,7 +39,11 @@ export default class DetailBlog extends React.Component {
             <View style={styles.container}>
                 <Text style={styles.title}>{this.state.blog.title}</Text>
                 <Text style={styles.description}>{this.state.blog.description}</Text>
-                <Text style={styles.image}>{this.state.blog.image}</Text>
+                <Image
+                    style={styles.image}
+                    source={{
+                        uri: API_URL + 'uploads/images/blog/' + this.state.image
+                    }}/>
             </View>
         )
     }
@@ -49,6 +53,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#003f5c',
+        justifyContent: "center",
+        alignItems: "center",
     },
     title: {
         fontWeight: "bold",
@@ -62,10 +68,10 @@ const styles = StyleSheet.create({
         color: "#ffffff",
         padding: 20
     },
-    image:{
-        backgroundColor: "#003f5c",
-        color: "#ffffff",
-        padding: 20
+    image: {
+        padding: 20,
+        width: 80,
+        height: 80,
     },
     containerList: {
         backgroundColor: "#465881",

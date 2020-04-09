@@ -39,7 +39,7 @@ export default class Account extends React.Component {
         this.state.firstname = data.firstname
         this.state.stoppedAtDate = new Date(data.stoppedAt.timestamp * 1000).toLocaleDateString("fr-FR");
         this.state.stoppedAt = data.stoppedAt;
-        this.state.averageDay= data.averageDay;
+        this.state.averageDay = data.averageDay;
         this.state.image = data.image
         this.state.packageCost = data.packageCost;
         this.forceUpdate()
@@ -60,6 +60,8 @@ export default class Account extends React.Component {
             })
         });
 
+        const eco = (this.state.averageDay * (Math.round(Math.abs((new Date() - new Date(this.state.stoppedAt.timestamp * 1000)) / (24 * 60 * 60 * 1000)))) / 20) * this.state.packageCost;
+        await AsyncStorage.setItem('eco', eco.toString())
         this.forceUpdate()
     };
 
@@ -68,7 +70,7 @@ export default class Account extends React.Component {
         const oneDay = 24 * 60 * 60 * 1000;
         const today = new Date();
         const countUp = Math.round(Math.abs((today - stoppedAt) / oneDay));
-        const eco = ((this.state.averageDay* countUp) / 20) * this.state.packageCost;
+        const eco = ((this.state.averageDay * countUp) / 20) * this.state.packageCost;
         return (
             <View style={styles.container}>
                 <Text style={styles.stats}>Mes Stats</Text>
@@ -81,8 +83,9 @@ export default class Account extends React.Component {
                 <Text style={styles.logo}>Mes Informations</Text>
                 <Image
                     style={styles.image}
-                    source={{source: {uri: API_URL + 'uploads/images/user/' + this.state.image}}}
-                />
+                    source={{
+                        uri: API_URL + 'uploads/images/user/' + this.state.image
+                    }}/>
                 <Text style={styles.text}>
                     {this.state.firstname}</Text>
                 <Text style={styles.text}>
@@ -175,10 +178,9 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     image: {
-        width: 20,
-        height: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
+        width: 80,
+        height: 80,
+        marginBottom: 30,
     },
     textStats: {
         color: "#ffffff",

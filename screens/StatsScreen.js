@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Stats from '../components/Stats'
+import Stats from '../components/Stats/Stats'
 import {View} from "react-native";
 
 export default class StatsScreen extends React.Component {

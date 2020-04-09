@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
-import Login from '../components/Login'
-import Home from "../components/Home";
+import Login from '../components/Auth/Login'
+import Home from "../components/Home/Home";
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Login';

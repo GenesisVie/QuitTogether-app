@@ -10,8 +10,8 @@ import {AsyncStorage} from 'react-native';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
 import RegisterScreen from "./screens/RegisterScreen";
-import DetailBlog from "./components/DetailBlog";
-import DetailStats from "./components/DetailStats";
+import DetailBlog from "./components/Blog/DetailBlog";
+import DetailStats from "./components/Stats/DetailStats";
 import BottomTabNoAuthNavigator from "./navigation/BottomTabNoAuthNavigator";
 
 const Stack = createStackNavigator();
