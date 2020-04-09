@@ -36,7 +36,7 @@ export default class App extends React.Component {
             await AsyncStorage.setItem("email", this.state.email)
             await AsyncStorage.setItem("password", this.state.password)
             const data = await result.json();
-            this._login();
+
         } else {
             alert('error register')
         }

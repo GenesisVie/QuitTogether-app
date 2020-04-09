@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {StyleSheet, Text, View, TextInput, TouchableOpacity, Image, AsyncStorage} from 'react-native';
-import { API_URL } from 'react-native-dotenv'
+import {API_URL} from 'react-native-dotenv'
 // import DateTime from '../components/DateTime'
 
 export default class Account extends React.Component {
@@ -15,13 +15,17 @@ export default class Account extends React.Component {
             stoppedAt: '',
             image: ""
         };
+    }
+
+    componentDidMount() {
         this._fetchingMyDetails();
     }
 
     _fetchingMyDetails = async () => {
-        const result = await fetch(API_URL+'/api/user/me', {
+        const token =  await AsyncStorage.getItem('token');
+        const result = await fetch(API_URL + 'api/user/me', {
             headers: {
-                'Authorization': 'Bearer ' + await AsyncStorage.getItem('token'),
+                'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json'
             },
             method: 'GET',
@@ -39,7 +43,7 @@ export default class Account extends React.Component {
     };
 
     _updatingMyDetails = async () => {
-        const result = await fetch(API_URL+'api/user/update', {
+        const result = await fetch(API_URL + 'api/user/update', {
             headers: {
                 'Authorization': 'Bearer ' + await AsyncStorage.getItem('token'),
                 'Content-Type': 'application/json'
@@ -60,7 +64,7 @@ export default class Account extends React.Component {
                 <Text style={styles.logo}>Mes Informations</Text>
                 <Image
                     style={styles.image}
-                    source={{source: {uri: API_URL+'uploads/images/user/' + this.state.image}}}
+                    source={{source: {uri: API_URL + 'uploads/images/user/' + this.state.image}}}
                 />
                 <Text style={styles.text}>
                     {this.state.firstname}</Text>
@@ -69,7 +73,7 @@ export default class Account extends React.Component {
 
                 <Text style={styles.modif}>Modifiable</Text>
                 <View style={styles.inputView}>
-                    {/*TODO: DatePicker (ca marchait pas du coup on peut pas changer la date alors que ca marche en back :/ */}
+                    {/*TODO: DatePicker (ca marchait pas du coup on peut pas changer la date même si la requête existe côté back :/ */}
                     {/*<DateTime date={this.state.date}/>*/}
                     <TextInput
                         style={styles.inputText}

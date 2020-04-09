@@ -28,7 +28,7 @@ export default class FriendAdd extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>Ajouter un amis</Text>
+                <Text style={styles.title}>Ajouter un ami</Text>
 
                 <View style={styles.inputView}>
                     <TextInput
