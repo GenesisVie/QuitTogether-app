@@ -45,7 +45,7 @@ export default function BottomTabNavigator({navigation, route}) {
                 component={Account}
                 options={{
                     tabBarLabel: () =>false,
-                    tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="md-people"/>,
+                    tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="md-person"/>,
                 }}
             />
         </BottomTab.Navigator>

@@ -12,7 +12,9 @@ export default class Account extends React.Component {
             firstname: "",
             countDown: "",
             packageCost: "",
-            stoppedAt: '',
+            stoppedAtDate: "",
+            stoppedAt: "",
+            averageDay: "",
             image: ""
         };
     }
@@ -22,7 +24,7 @@ export default class Account extends React.Component {
     }
 
     _fetchingMyDetails = async () => {
-        const token =  await AsyncStorage.getItem('token');
+        const token = await AsyncStorage.getItem('token');
         const result = await fetch(API_URL + 'api/user/me', {
             headers: {
                 'Authorization': 'Bearer ' + token,
@@ -32,9 +34,12 @@ export default class Account extends React.Component {
 
         });
         const data = await result.json();
+
         this.state.lastname = data.lastname
         this.state.firstname = data.firstname
-        this.state.stoppedAt = new Date(data.stoppedAt.timestamp * 1000).toLocaleDateString("fr-FR");
+        this.state.stoppedAtDate = new Date(data.stoppedAt.timestamp * 1000).toLocaleDateString("fr-FR");
+        this.state.stoppedAt = data.stoppedAt;
+        this.state.averageDay= data.averageDay;
         this.state.image = data.image
         this.state.packageCost = data.packageCost;
         this.forceUpdate()
@@ -59,8 +64,20 @@ export default class Account extends React.Component {
     };
 
     render() {
+        const stoppedAt = new Date(this.state.stoppedAt.timestamp * 1000);
+        const oneDay = 24 * 60 * 60 * 1000;
+        const today = new Date();
+        const countUp = Math.round(Math.abs((today - stoppedAt) / oneDay));
+        const eco = ((this.state.averageDay* countUp) / 20) * this.state.packageCost;
         return (
             <View style={styles.container}>
+                <Text style={styles.stats}>Mes Stats</Text>
+                <Text style={styles.textStats}>
+                    Ça fait <Text style={styles.bigRed}>{countUp}</Text> jours que vous n'avez pas fumé !!
+                </Text>
+                <Text style={styles.textStats}>
+                    Vous avez économisez <Text style={styles.bigRed}>{eco}€</Text>
+                </Text>
                 <Text style={styles.logo}>Mes Informations</Text>
                 <Image
                     style={styles.image}
@@ -79,7 +96,7 @@ export default class Account extends React.Component {
                         style={styles.inputText}
                         placeholderTextColor="#003f5c"
                         onChangeText={(stoppedAt) => this.setState({stoppedAt: stoppedAt})}
-                        value={this.state.stoppedAt}
+                        value={this.state.stoppedAtDate}
                     />
                 </View>
                 <View style={styles.inputView}>
@@ -113,6 +130,16 @@ const styles = StyleSheet.create({
         fontSize: 50,
         color: "#fb5b5a",
         marginBottom: 40
+    },
+    bigRed: {
+        fontWeight: "bold",
+        fontSize: 20,
+        color: "#fb5b5a",
+    },
+    stats: {
+        fontWeight: "bold",
+        fontSize: 50,
+        color: "#fb5b5a",
     },
     modif: {
         fontStyle: 'italic',
@@ -152,6 +179,11 @@ const styles = StyleSheet.create({
         height: 20,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    textStats: {
+        color: "#ffffff",
+        justifyContent: "center",
+        padding: 20
     },
     text: {
         width: "50%",

@@ -11,6 +11,9 @@ export default class FriendAdd extends React.Component {
         }
     }
 
+    //TODO: Display suggests names
+
+
     _loadFriend = async () => {
         const result = await fetch(API_URL + 'api/friend/add', {
             headers: {

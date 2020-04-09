@@ -12,6 +12,9 @@ export default class FriendStat extends React.Component {
         this._loadFriendStats();
     }
 
+    //TODO: Système de likes ou réaction
+
+
     _loadFriendStats = async () => {
         const result = await fetch(API_URL+'api/friend/all/user-stat', {
             headers: {
@@ -29,6 +32,7 @@ export default class FriendStat extends React.Component {
     keyExtractor = (item, index) => index.toString()
     _displayDetailStats = (item) => {
         //TODO: Detail stats friend
+        //Detail de la stat, avec un check si on l'a debloqué aussi
         console.log(item)
     }
     renderItem = ({item}) => (
