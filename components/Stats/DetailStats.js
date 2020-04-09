@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     image: {
         padding: 20,
         width: 80,
+        borderRadius: 20,
         height: 80,
     },
     containerList: {

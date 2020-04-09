@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     },
     image: {
         padding: 20,
+        borderRadius: 20,
         width: 80,
         height: 80,
     },
