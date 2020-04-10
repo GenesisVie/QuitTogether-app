@@ -25,14 +25,14 @@ La période oû ce projet a été réalisé est du mois d'octobre 2019 au mois d
 
 ## Setup 
 
-Installation d'Expo
+Installation d'Expo </br>
 `npm install --global expo-cli` </br>
-`npm install`
+`npm install` </br>
 
 ## Lancement
 
-Lancement via Expo
-`expo start`
+Lancement via Expo</br>
+`expo start`</br>
 
 
 
