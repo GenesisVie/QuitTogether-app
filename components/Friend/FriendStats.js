@@ -2,7 +2,7 @@ import * as React from 'react';
 import {AsyncStorage, FlatList, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {ListItem} from 'react-native-elements'
 import {ErrorBoundary} from "../ErrorBoundary";
-import { API_URL } from 'react-native-dotenv'
+import {API_URL} from 'react-native-dotenv'
 
 export default class FriendStat extends React.Component {
 
@@ -19,7 +19,7 @@ export default class FriendStat extends React.Component {
 
 
     _loadFriendStats = async () => {
-        const result = await fetch(API_URL+'api/friend/all/user-stat', {
+        const result = await fetch(API_URL + 'api/friend/all/user-stat', {
             headers: {
                 'Authorization': 'Bearer ' + await AsyncStorage.getItem('token'),
                 'Accept': 'application/json',
@@ -27,10 +27,10 @@ export default class FriendStat extends React.Component {
             },
             method: 'GET',
         });
-        const data =  await result.json();
+        const data = await result.json();
         if (data.status !== 500) {
             this.state.friendsStats = data;
-            this.state.loading= true;
+            this.state.loading = true;
         }
         this.forceUpdate()
     };
@@ -49,7 +49,7 @@ export default class FriendStat extends React.Component {
                 containerStyle={styles.containerList}
                 contentContainerStyle={styles.item}
                 subtitleStyle={styles.text}
-                subtitle={item.cigarettes}
+                subtitle={'"' + item.title + '"'}
                 titleStyle={styles.titlecontent}
                 title={item.firstname + ' ' + item.lastname + ' a débloqué un accomplissement'}
                 // leftAvatar={{ source: { uri: API_URL+'uploads/images/stats/'+item.image} }}
@@ -59,7 +59,7 @@ export default class FriendStat extends React.Component {
     )
 
     render() {
-        if (this.state.loading){
+        if (this.state.loading) {
             return (
                 <View style={styles.container}>
                     <Text style={styles.title}>Les accomplissements de vos amis</Text>
@@ -71,7 +71,7 @@ export default class FriendStat extends React.Component {
                     />
                 </View>
             )
-        }else{
+        } else {
             return (
                 <View style={styles.container}>
                     <Text style={styles.title}>Pas d'amis pas de stats </Text>

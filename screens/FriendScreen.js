@@ -12,6 +12,7 @@ export default class FriendScreen extends React.Component {
 
     render() {
         return (
+            //TODO: L'api remarche allheihuia
             <SafeAreaView style={styles.container}>
                 <FriendAdd/>
                 <FriendStats/>

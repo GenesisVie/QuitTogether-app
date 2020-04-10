@@ -45,9 +45,7 @@ export default class Stats extends React.Component {
                 containerStyle={styles.containerList}
                 contentContainerStyle={styles.item}
                 titleStyle={styles.titlecontent}
-                subtitleStyle={styles.text}
                 title={item.title}
-                subtitle={'Cigarettes non fumés :' + item.cigarettes}
                 leftAvatar={{source: {uri: API_URL + 'uploads/images/stats/' + item.image}}}
                 chevron
             />
@@ -99,14 +97,14 @@ const styles = StyleSheet.create({
     },
     containerList: {
         backgroundColor: "#465881",
-        height: 50,
+        height: 70,
         marginBottom: 20,
         borderRadius: 10,
         padding: 20
     },
     item: {
-        height: 20,
-        marginTop: 10,
+        height: 40,
+        marginTop: 15,
         margin: 5
     },
     titlecontent: {
