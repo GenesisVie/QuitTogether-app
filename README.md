@@ -21,6 +21,7 @@ La période oû ce projet a été réalisé est du mois d'octobre 2019 au mois d
 # Technologies du projet
 
  Application mobile réalisée sous React Native.</br>
+ https://reactnative.dev/
 
 
 ## Setup 
