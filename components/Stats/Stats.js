@@ -8,7 +8,10 @@ export default class Stats extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {stats: []}
+        this.state = {
+            stats: [],
+            loading: false
+        }
         this._loadStats();
     }
 
@@ -22,7 +25,10 @@ export default class Stats extends React.Component {
             method: 'GET',
         });
         const data = await result.json();
-        this.state.stats = data;
+        if (data.status !== 500) {
+            this.state.stats = data;
+            this.state.loading = true;
+        }
         this.forceUpdate()
     };
 
@@ -49,17 +55,26 @@ export default class Stats extends React.Component {
     )
 
     render() {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.title}>Vos accomplissements</Text>
-                <FlatList
-                    style={styles.content}
-                    keyExtractor={this.keyExtractor}
-                    data={this.state.stats}
-                    renderItem={this.renderItem}
-                />
-            </View>
-        )
+        if (this.state.loading) {
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.title}>Vos accomplissements</Text>
+                    <FlatList
+                        style={styles.content}
+                        keyExtractor={this.keyExtractor}
+                        data={this.state.stats}
+                        renderItem={this.renderItem}
+                    />
+                </View>
+            )
+        }else{
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.title}>Courage vous aurez des accomplissements</Text>
+
+                </View>
+            )
+        }
     }
 }
 

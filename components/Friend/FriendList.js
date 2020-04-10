@@ -8,7 +8,10 @@ export default class FriendList extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {friends: []}
+        this.state = {
+            friends: [],
+            loading: false
+        }
         this._loadFriend();
     }
 
@@ -22,7 +25,10 @@ export default class FriendList extends React.Component {
             method: 'GET',
         });
         const data = await result.json();
-        this.state.friends = data;
+        if (data.status !== 500) {
+            this.state.friends = data;
+            this.state.loading = true;
+        }
         this.forceUpdate()
     };
 
@@ -39,19 +45,28 @@ export default class FriendList extends React.Component {
     );
 
     render() {
-        return (
-            <ErrorBoundary>
-                <View style={styles.container}>
-                    <Text style={styles.title}>Mes Amis</Text>
-                    <FlatList
-                        style={styles.content}
-                        keyExtractor={this.keyExtractor}
-                        data={this.state.friends}
-                        renderItem={this.renderItem}
-                    />
-                </View>
-            </ErrorBoundary>
-        )
+        if (this.state.loading) {
+            return (
+                <ErrorBoundary>
+                    <View style={styles.container}>
+                        <Text style={styles.title}>Mes Amis</Text>
+                        <FlatList
+                            style={styles.content}
+                            keyExtractor={this.keyExtractor}
+                            data={this.state.friends}
+                            renderItem={this.renderItem}
+                        />
+                    </View>
+                </ErrorBoundary>
+            )
+        }else{
+            return (
+                    <View style={styles.container}>
+                        <Text style={styles.title}>Vous n'avez pas d'amis :( </Text>
+
+                    </View>
+            )
+        }
     }
 }
 

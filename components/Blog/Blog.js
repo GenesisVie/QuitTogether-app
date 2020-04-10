@@ -2,7 +2,7 @@ import * as React from 'react';
 import {AsyncStorage, FlatList, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {ListItem} from 'react-native-elements'
 import {ErrorBoundary} from "../ErrorBoundary";
-import { API_URL } from 'react-native-dotenv'
+import {API_URL} from 'react-native-dotenv'
 
 export default class Blog extends React.Component {
 
@@ -13,7 +13,7 @@ export default class Blog extends React.Component {
     }
 
     _loadBlogs = async () => {
-        const result = await fetch(API_URL+'api/blog/all', {
+        const result = await fetch(API_URL + 'api/blog/all', {
             headers: {
                 'Authorization': 'Bearer ' + await AsyncStorage.getItem('token'),
                 'Accept': 'application/json',
@@ -35,10 +35,8 @@ export default class Blog extends React.Component {
                 containerStyle={styles.containerList}
                 contentContainerStyle={styles.item}
                 titleStyle={styles.titlecontent}
-                subtitleStyle={styles.text}
                 title={item.title}
-                subtitle={item.description}
-                leftAvatar={{ source: { uri: API_URL+'uploads/images/blog/' + item.image} }}
+                leftAvatar={{source: {uri: API_URL + 'uploads/images/blog/' + item.image}}}
                 chevron
             />
         </TouchableOpacity>
@@ -49,8 +47,22 @@ export default class Blog extends React.Component {
 
     render() {
         return (
+
             <ErrorBoundary>
                 <View style={styles.container}>
+                    <Text style={styles.title}>QuitTogether</Text>
+                    <Text style={styles.text}>
+                        Merci de nous faire confiance durant cette aventure avec vous.
+
+                        Quit Together dispose de plusieurs fonctionnalités qui vous aideront tout au long de votre
+                        épreuve d'arrêter la cigarette.
+                        Nous disposons tout d'abord d'un blog qui vous permettra d'avoir des articles en temps réel sur
+                        les bienfaits de l'arrêt de la cigarette ainsi que diverses articles autour de la cigarette. Je
+                        vous invite a aller voir dès maintenant les premiers articles disponibles!
+                        Bonne navigation et bonne chance.
+
+                        Quit Together for a better health.
+                    </Text>
                     <Text style={styles.title}>Nos Article Stop Tabac</Text>
                     <FlatList
                         style={styles.content}
@@ -99,6 +111,9 @@ const styles = StyleSheet.create({
     },
     text: {
         color: "#ffffff",
+        textAlign: "justify",
+        marginLeft: 20,
+        marginRight: 20
     },
 });
 

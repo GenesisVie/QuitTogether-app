@@ -21,7 +21,6 @@ export const _authenticate = async (email, password) => {
                 await AsyncStorage.setItem('token', '')
                 alert('Identifiants invalides')
             }
-            console.log(res.token)
             await AsyncStorage.setItem('token', res.token)
             await AsyncStorage.setItem("email", email)
             await AsyncStorage.setItem("password", password)

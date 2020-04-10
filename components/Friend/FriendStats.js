@@ -8,7 +8,10 @@ export default class FriendStat extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {friendsStats: []}
+        this.state = {
+            friendsStats: [],
+            loading: false
+        }
         this._loadFriendStats();
     }
 
@@ -25,7 +28,10 @@ export default class FriendStat extends React.Component {
             method: 'GET',
         });
         const data =  await result.json();
-        this.state.friendsStats = data;
+        if (data.status !== 500) {
+            this.state.friendsStats = data;
+            this.state.loading= true;
+        }
         this.forceUpdate()
     };
 
@@ -53,17 +59,25 @@ export default class FriendStat extends React.Component {
     )
 
     render() {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.title}>Les accomplissements de vos amis</Text>
-                <FlatList
-                    style={styles.content}
-                    keyExtractor={this.keyExtractor}
-                    data={this.state.friendsStats}
-                    renderItem={this.renderItem}
-                />
-            </View>
-        )
+        if (this.state.loading){
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.title}>Les accomplissements de vos amis</Text>
+                    <FlatList
+                        style={styles.content}
+                        keyExtractor={this.keyExtractor}
+                        data={this.state.friendsStats}
+                        renderItem={this.renderItem}
+                    />
+                </View>
+            )
+        }else{
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.title}>Pas d'amis pas de stats </Text>
+                </View>
+            )
+        }
     }
 }
 
