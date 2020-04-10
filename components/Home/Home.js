@@ -9,9 +9,12 @@ export default class Home extends React.Component {
         return (
             <ErrorBoundary>
                 <View style={styles.container}>
-                    <Text style={styles.title}>Bienvenue sur QuitTogether</Text>
-                    <Text style={styles.description}>Venez arreter de fumer avec vos amis pour avoir la meilleure des
-                        motivations
+                    <Text style={styles.title}>Bienvenue sur QuitTogether !</Text>
+                    <Text style={styles.description}>
+                        Si vous avez téléchargé cette application c'est que vous aviez besoin d'aide pour arrêter de fumer.
+                        Nous avons hâte d'être a vos côtés durant cette période.
+                        Mais d'abord il va falloir que vous vous inscriviez afin que l'on puisse en apprendre plus sur
+                        votre situation, a tout de suite!
                     </Text>
                     <Image style={styles.image} source={require('../../assets/images/friend.png')}/>
                 </View>
@@ -35,11 +38,13 @@ const styles = StyleSheet.create({
     description: {
         margin: 40,
         color: "#ffffff",
+        textAlign: "justify",
+        marginLeft: 20,
+        marginRight: 20,
         fontSize: 25
     },
     image: {
-        justifyContent: 'center',
-        alignItems: 'center',
+        margin: 20
 
     },
     item: {
@@ -52,6 +57,9 @@ const styles = StyleSheet.create({
     },
     text: {
         color: "#ffffff",
+        textAlign: "justify",
+        marginLeft: 20,
+        marginRight: 20
     },
 });
 
