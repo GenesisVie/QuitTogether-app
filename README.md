@@ -25,6 +25,7 @@ La période oû ce projet a été réalisé est du mois d'octobre 2019 au mois d
 
 
 ## Setup 
+Le .env se trouve dans le pdf envoyé. </br>
 
 Installation d'Expo </br>
 `npm install --global expo-cli` </br>
