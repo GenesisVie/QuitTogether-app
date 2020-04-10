@@ -12,7 +12,7 @@ export default class App extends React.Component {
             password: "",
             firstname: "",
             lastname: "",
-            birthday: "",
+            averageDay: "",
             packageCost: "",
         };
     }
@@ -30,7 +30,7 @@ export default class App extends React.Component {
                     email: this.state.email,
                     firstname: this.state.firstname,
                     lastname: this.state.lastname,
-                    birthday: this.state.birthday,
+                    averagePerDay: this.state.averageDay,
                     packageCost: this.state.packageCost,
                 })
             });
@@ -41,11 +41,6 @@ export default class App extends React.Component {
         } else {
             alert('error register')
         }
-    };
-
-    _fetchingAsync = async () => {
-        const fetchedAsync = await AsyncStorage.getItem('token');
-        console.log(fetchedAsync)
     };
 
     render() {
@@ -92,10 +87,10 @@ export default class App extends React.Component {
                 <View style={styles.inputView}>
                     <TextInput
                         style={styles.inputText}
-                        placeholder="Date de naissance..."
+                        placeholder="Nombre de cigarettes par jour..."
                         placeholderTextColor="#003f5c"
-                        onChangeText={(birthday) => this.setState({birthday: birthday})}
-                        value={this.state.birthday}
+                        onChangeText={(averagePerDay) => this.setState({averageDay: averagePerDay})}
+                        value={this.state.averageDay}
                     />
                 </View>
                 <View style={styles.inputView}>
