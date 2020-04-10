@@ -2,7 +2,8 @@ import React from 'react';
 import {StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import {AsyncStorage} from 'react-native';
 import { API_URL } from 'react-native-dotenv'
-import {_authenticate} from '../services/Auth'
+import {_authenticate } from '../services/Auth'
+
 
 export default class App extends React.Component {
     constructor(props) {
@@ -37,7 +38,12 @@ export default class App extends React.Component {
             await AsyncStorage.setItem("email", this.state.email)
             await AsyncStorage.setItem("password", this.state.password)
             const data = await result.json();
-
+            if (data.success) {
+                await _authenticate(this.state.email, this.state.password)
+                this.props.navigation.navigate("App")
+            }else{
+                alert('error register')
+            }
         } else {
             alert('error register')
         }
