@@ -4,19 +4,19 @@ import {ListItem} from 'react-native-elements'
 import {ErrorBoundary} from "../ErrorBoundary";
 import {API_URL} from 'react-native-dotenv'
 
-export default class FriendList extends React.Component {
+export default class CigaretteList extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            friends: [],
+            cigarettes: [],
             loading: false
         }
-        this._loadFriend();
+        this._loadCigarette();
     }
 
-    _loadFriend = async () => {
-        const result = await fetch(API_URL + 'api/friend/all', {
+    _loadCigarette = async () => {
+        const result = await fetch(API_URL + 'api/cigarette/all', {
             headers: {
                 'Authorization': 'Bearer ' + await AsyncStorage.getItem('token'),
                 'Accept': 'application/json',
@@ -25,10 +25,11 @@ export default class FriendList extends React.Component {
             method: 'GET',
         });
         const data = await result.json();
-        if (data.status !== 500 ) {
-            this.state.friends = data;
+        console.log(data)
+        if (data.status !== 500) {
+            this.state.cigarettes = data;
         }
-        if (this.state.friends.length > 0 ){
+        if (this.state.cigarettes.length > 0) {
             this.state.loading = true;
         }
         this.forceUpdate()
@@ -41,8 +42,7 @@ export default class FriendList extends React.Component {
             containerStyle={styles.containerList}
             contentContainerStyle={styles.item}
             titleStyle={styles.titlecontent}
-            title={item.firstname + ' ' + item.lastname}
-            leftAvatar={{source: {uri: API_URL + 'uploads/images/user/' + item.image}}}
+            title={item.reason }
         />
     );
 
@@ -51,22 +51,19 @@ export default class FriendList extends React.Component {
             return (
                 <ErrorBoundary>
                     <View style={styles.container}>
-                        <Text style={styles.title}>Mes Amis</Text>
+                        <Text style={styles.title}>Mes Craquages</Text>
                         <FlatList
                             style={styles.content}
                             keyExtractor={this.keyExtractor}
-                            data={this.state.friends}
+                            data={this.state.cigarettes}
                             renderItem={this.renderItem}
                         />
                     </View>
                 </ErrorBoundary>
             )
-        }else{
+        } else {
             return (
-                    <View style={styles.container}>
-                        <Text style={styles.title}>Vous n'avez pas d'amis :( </Text>
-
-                    </View>
+                <View />
             )
         }
     }

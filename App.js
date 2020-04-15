@@ -13,6 +13,7 @@ import RegisterScreen from "./screens/RegisterScreen";
 import DetailBlog from "./components/Blog/DetailBlog";
 import DetailStats from "./components/Stats/DetailStats";
 import BottomTabNoAuthNavigator from "./navigation/BottomTabNoAuthNavigator";
+import Cigarette from "./screens/CigaretteScreen";
 
 const Stack = createStackNavigator();
 
@@ -64,6 +65,7 @@ export default function App(props) {
                         <Stack.Screen name="Register" component={RegisterScreen}/>
                         <Stack.Screen name="DetailBlog" component={DetailBlog}/>
                         <Stack.Screen name="DetailStats" component={DetailStats}/>
+                        <Stack.Screen name="Cigarette" component={Cigarette}/>
                     </Stack.Navigator>
                 </NavigationContainer>
             </View>

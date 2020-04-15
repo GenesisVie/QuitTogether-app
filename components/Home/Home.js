@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
     },
     image: {
         margin: 20
-
     },
     item: {
         height: 20,

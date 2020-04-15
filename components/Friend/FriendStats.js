@@ -30,6 +30,8 @@ export default class FriendStat extends React.Component {
         const data = await result.json();
         if (data.status !== 500) {
             this.state.friendsStats = data;
+        }
+        if (this.state.friendsStats.length > 0 ){
             this.state.loading = true;
         }
         this.forceUpdate()
